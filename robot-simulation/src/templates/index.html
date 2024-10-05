@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Meu Formulário</title>
+	<style>
+		/* Adicione estilos CSS aqui */
+	</style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>Z</th>
+            <th>R</th>
+        </tr>
+        {% for coordinate in coordinates %}
+            <tr>
+                <td>{{ coordinate.x }}</td>
+                <td>{{ coordinate.y }}</td>
+                <td>{{ coordinate.z }}</td>
+                <td>{{ coordinate.r }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+	<form action="/coordinates/create" method="POST">
+		<label for="x">X:</label>
+		<input type="text" name="x"><br><br>
+
+		<label for="y">Y:</label>
+		<input type="text" name="y"><br><br>
+
+		<label for="z">Z:</label>
+		<input type="text" name="z"><br><br>
+
+		<label for="r">R:</label>
+		<input type="text" name="r"><br><br>
+
+		<input type="submit" value="Enviar">
+	</form>
+</body>
+</html>

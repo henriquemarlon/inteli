@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário</title>
+</head>
+<body>
+    <h1>Formulário</h1>
+    
+        <label >Spending Score (1-100):</label>
+        <input type="number" step="1" id="spendingScore" name="spendingScore" min="1" max="100">
+        <br />
+        <br />
+
+        <label >Annual Income (k$):</label>
+        <input type="number" step="1" id="annualIncome" name="annualIncome" >
+        <br />
+        <br />
+
+        <label >Genero:</label>
+        <select id="gender">
+            <option value=1 >Feminino</option>
+            <option value=2 >Masculino</option>
+        </select>
+        <br />
+        <br />
+
+        <button type="submit" onclick="enviarDados()">Enviar</button>
+    
+    <div id="response"></div>
+    
+    <script>
+        function enviarDados() {
+        const spendingScore = document.getElementById("spendingScore").value;
+        const annualIncome = document.getElementById("annualIncome").value;
+        const Gender = document.getElementById("gender").value;
+
+        fetch("http://0.0.0.0:8000/previsao", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ 
+            spendingScore,
+            annualIncome,
+            Gender
+        }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.text()
+          })
+          .then((data) => {
+            // Atualize o elemento HTML com a resposta
+            document.getElementById("response").innerHTML = data;
+            })
+          .catch((error) => {
+            alert(error);
+          });
+      }
+    </script>
+</body>
+</html>

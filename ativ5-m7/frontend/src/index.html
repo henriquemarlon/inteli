@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App de Autenticação</title>
+    <style>
+      .container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 3px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .container2 {
+        width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .alinha-centro {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      input {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      button {
+        padding: 10px 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="alinha-centro">
+        <h1>Login</h1>
+      </div>
+      <div class="alinha-centro">
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Senha" />
+      </div>
+      <div class="alinha-centro">
+        <button onclick="login()">Entrar</button>
+        <button onclick="createUser()">Criar Conta</button>
+      </div>
+    </div>
+    <div style="display: none" id="user-area">
+      <div class="container">
+        <div class="alinha-centro">
+          <h1>New Prediction</h1>
+        </div>
+        <label>Spending Score (1-100):</label>
+        <input
+          type="number"
+          step="1"
+          id="spendingScore"
+          name="spendingScore"
+          min="1"
+          max="100"
+        />
+        <br />
+        <br />
+
+        <label>Annual Income (k$):</label>
+        <input type="number" step="1" id="annualIncome" name="annualIncome" />
+        <br />
+        <br />
+
+        <label>Genero:</label>
+        <select id="gender">
+          <option value="1">Feminino</option>
+          <option value="2">Masculino</option>
+        </select>
+        <br />
+        <br />
+
+        <button type="submit" onclick="prediction()">Enviar</button>
+        <br />
+        <button onclick="verEstatisticas()">Ver Estatísticas</button>
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script>
+      function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://54.225.231.83:8080/sign_in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            //console.log("Token recebido:", data.token);
+            localStorage.setItem("token", data.token);
+            document.getElementById("user-area").style.display = "block";
+            alert("Login bem-sucedido!");
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao fazer login: " + error.message);
+          });
+      }
+
+      function createUser() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://54.225.231.83:8080/sign_up", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.text();
+          })
+          .then((message) => {
+            alert(message);
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao criar usuário: " + error.message);
+          });
+      }
+
+      function prediction() {
+        const token = localStorage.getItem("token");
+        console.log(token);
+        if (!token) {
+          alert("Por favor, faça login primeiro.");
+          return;
+        }
+        const annual_income = document.getElementById("annualIncome").value;
+        const spending_score = document.getElementById("spendingScore").value;
+        const selectElement = document.getElementById("gender");
+        const gender = selectElement.value;
+        console.log(annual_income);
+        console.log(spending_score);
+        console.log(gender);
+
+        var data = {
+          spending_score: spending_score,
+          annual_income: annual_income,
+          gender: gender,
+        };
+
+        fetch("http://54.225.231.83:8080/predict", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            console.log(response);
+            return response.text();
+          })
+          .then((message) => {
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = message;
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro: " + error.message);
+          });
+      }
+
+      function verEstatisticas() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("Por favor, faça login primeiro.");
+          return;
+        }
+
+        fetch("http://54.225.231.83:8080/data_analysis", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Supondo que a resposta contém um atributo 'image' que é a representação base64 da imagem
+            const base64Image = data.image;
+            renderBase64Image(base64Image);
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro: " + error.message);
+          });
+      }
+
+      function renderBase64Image(base64Image) {
+        const imgElement = document.getElementById("result");
+        imgElement.innerHTML = `<img src="data:image/png;base64,${base64Image}" alt="Estatísticas" style="max-width: 100%; height: auto;">`;
+      }
+    </script>
+  </body>
+</html>

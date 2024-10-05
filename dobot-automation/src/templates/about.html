@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPT | Instituto de Pesquisas Tecnológicas</title>
+
+    <!-- Custom fonts for this template -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="icon" href="{{ url_for('static', filename = '../utils/images/icon-ipt.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = '../utils/css/about.style.css') }}">
+    <!-- <link rel="stylesheet" href="../static/report.style.css"> -->
+</head>
+
+<body>
+    <div class="flex">
+        <div>
+            <img class="logo" src="{{url_for('static', filename='images/logo_ipt.png')}}" alt="logo ipt">
+            <img class="arm" src="{{url_for('static', filename='images/braco_mecanico_2.png')}}" alt="braço robótico">
+        </div>
+        <div class="form">
+            <p class="title">IPT e Alquimistas</p>
+            <p class="sub-title"> O objetivo deste projeto é conceber e implementar um protótipo de um sistema de automação industrial, integrando módulos discretos implementados utilizando dispositivos microcontrolados a manipuladores robóticos antropomórficos. Assim, desenvolvemos um equipamento automatizado que tenha capacidade de aplicar um campo magnético constante, com intensidade e distância ajustáveis, ao longo de todo a amostra promovendo assim uma separação dos minerais magnéticos, que serão depositados em um recipiente diferente dos minerais não magnéticos que permanecerão depositados na bandeja original.</p>
+            <div class="button">
+              <a id="btn-begin" href ="/report" class="btn-begin">Inserir Relatório &raquo;</a>
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>     
+</html>

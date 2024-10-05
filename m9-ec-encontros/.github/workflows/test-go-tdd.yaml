@@ -1,0 +1,27 @@
+name: Test Go TDD example
+
+on:
+  push:
+    branches:
+      - 'dev'
+    paths:
+      - 'Exemplos/E02/goTdd/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: './Exemplos/E02/goTdd'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+      - name: Get dependencies
+        run: go mod tidy   
+      - name: Test
+        run: go test -v --cover .

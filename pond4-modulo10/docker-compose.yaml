@@ -1,0 +1,81 @@
+services:
+  python:
+    build: ./python/
+    ports:
+      - "8000:8000"
+    container_name: python
+    networks:
+      - backend
+    volumes:
+      - ./logs:/app/logs
+      - sqlite_data:/app
+
+  golang:
+    build: ./golang/
+    ports:
+      - "8080:8080"
+    container_name: golang
+    networks:
+      - backend
+    volumes:
+      - ./logs:/logs
+      - sqlite_data:/app/data
+
+  filebeat:
+    build: ./filebeat/
+    container_name: filebeat
+    volumes:
+      - ./logs:/src/logs
+    depends_on:
+      - python
+      - golang
+      - elasticsearch
+      - kibana
+    network_mode: "host"
+
+  elasticsearch:
+    build: ./elasticsearch/
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    build: ./kibana/
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  nginx:
+    image: nginx:latest
+    hostname: nginx
+    container_name: nginx
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - python
+      - golang
+    networks:
+      - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx:/var/log/nginx
+
+volumes:
+  elasticsearch_data:
+    driver: local
+
+  sqlite_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/python/
+
+networks:
+  backend:
+

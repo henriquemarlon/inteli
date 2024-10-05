@@ -1,0 +1,26 @@
+{
+  "name": "analysis_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henriquemarlon/analysis_automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henriquemarlon/analysis_automation/issues"
+  },
+  "homepage": "https://github.com/henriquemarlon/analysis_automation#readme",
+  "dependencies": {
+    "aedes": "^0.49.0"
+  }
+}

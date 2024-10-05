@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  backend:
+    container_name: backend
+    restart: on-failure
+    image: henriquemarlon/backend-prova1:1.0.0
+    ports:
+      - "8000:8000"
+    
+  frontend:
+    container_name: frontend
+    restart: on-failure
+    image: henriquemarlon/frontend-prova1:1.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

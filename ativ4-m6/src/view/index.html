@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./styles/style.css">
+</head>
+<body>
+  <h1>Gravação de vídeo da Webcam</h1> 
+  <button id="startButton" class="button" onclick="startRecording()">Iniciar Gravação</button>
+  <script>
+    function startRecording() {
+      fetch('/record', { method: 'POST' })
+        .then(response => {
+          if (response.ok) {
+            alert('Vídeo salvo com sucesso!! :)');
+          } else {
+            alert('Ocorreu um erro ao salvar o vídeo.');
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao fazer a requisição:', error);
+          alert('Ocorreu um erro ao salvar o vídeo.');
+        });
+    }
+  </script>
+</body>
+</html>

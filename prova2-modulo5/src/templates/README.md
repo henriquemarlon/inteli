@@ -1,0 +1,1 @@
+### Esta pasta foi criada seguindo o padrão mvc, mas como não será necessário um forntend para esa aplicação ela está vazia.

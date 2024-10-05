@@ -1,0 +1,10 @@
+PyJWT
+pandas
+fastapi
+matplotlib
+SQLAlchemy
+python-dotenv
+pandas==1.5.3
+pycaret==3.0.4
+psycopg2-binary
+uvicorn[standard]

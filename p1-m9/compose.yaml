@@ -1,0 +1,42 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  broker:
+    image: eclipse-mosquitto:latest
+    ports:
+      - 1883:1883
+      - 1891:1891
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  freezer:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation-freezer
+    depends_on:
+      - broker
+    volumes:
+      - .:/src
+  refrigerator:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation-refrigerator
+    depends_on:
+      - broker
+    volumes:
+      - .:/src
+  subscriber:
+    build:
+      context: .
+      dockerfile: Dockerfile.subscriber
+    depends_on:
+      - freezer
+      - refrigerator
+    volumes:
+      - .:/src

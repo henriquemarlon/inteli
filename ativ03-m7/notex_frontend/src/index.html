@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App de Autenticação</title>
+    <style>
+    
+      .container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 3px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .container2 {
+        width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .alinha-centro {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      input {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      button {
+        padding: 10px 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="alinha-centro">
+            <h1>Login</h1>
+        </div>
+        <div class="alinha-centro">
+            <input type="text" id="username" placeholder="Nome de usuário" />
+            <input type="email" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="Senha" />
+        </div>
+        <div class="alinha-centro">
+            <button onclick="login()">Entrar</button>
+            <button onclick="createUser()">Criar Conta</button>
+        </div>
+    </div>
+    <div style="display: none;" id="user-area">
+        <div class="container">
+            <div class="alinha-centro">
+                <h1>Create new post</h1>
+            </div>
+            <div class="alinha-centro">
+                <input type="text" id="title" placeholder="Title" />
+                <input type="text" id="content" placeholder="Content" />
+            </div>
+            <div class="alinha-centro">
+                <button onclick="createPost()">Create Post</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="alinha-centro">
+                <h1>Postagens feitas</h1>
+            </div>
+            <div class="alinha-centro">
+                <button onclick="getAllPosts()">Obter Posts</button>
+            </div>
+            <div id="posts"></div>
+        </div>
+    </div>
+
+    <script>
+      function login() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://localhost:8080/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.text();
+          })
+          .then((token) => {
+            localStorage.setItem("token", token);
+            document.getElementById('user-area').style.display = 'block';
+            alert("Login bem-sucedido!");
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao fazer login: " + error.message);
+          });
+      }
+
+      function createUser() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://localhost:8080/user/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.text();
+          })
+          .then((message) => {
+            alert(message);
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao criar usuário: " + error.message);
+          });
+      }
+
+      function getAllPosts() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("Por favor, faça login primeiro.");
+          return;
+        }
+
+        fetch("http://localhost:8080/post/get", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.json();
+          })
+          .then((posts) => {
+            let postsHTML = posts
+                .reverse()
+                .map((post) => {
+                    return `
+                        <div class="container2">
+                            <h2>${post.title}</h2>
+                            <p>${post.content}</p>
+                        </div>
+                        `;
+                })
+                .join("");
+            document.getElementById("posts").innerHTML  = postsHTML;
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao obter posts: " + error.message);
+          });
+      }
+
+      function createPost() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("Por favor, faça login primeiro.");
+          return;
+        }
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+
+        fetch("http://localhost:8080/post/create", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ title, content }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro na resposta do servidor");
+            }
+            return response.text();
+          })
+          .then((message) => {
+            alert(message);
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao criar post: " + error.message);
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+172.18.0.1 - - [18/Jun/2024:15:17:44 +0000] "POST /service2/user HTTP/1.1" 201 42 "http://localhost/service2/docs/index.html" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"

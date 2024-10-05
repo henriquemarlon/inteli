@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPT | Instituto de Pesquisas Tecnológicas</title>
+
+    <!-- Custom fonts for this template -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="icon" href="{{ url_for('static', filename = 'images/icon-ipt.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/report.style.css') }}">
+    <!-- <link rel="stylesheet" href="../static/report.style.css"> -->
+</head>
+
+<body>
+    <div class="flex">
+        <div>
+            <img class="logo" src="{{ url_for('static', filename = 'images/logo_ipt.png') }}" alt="logo ipt">
+            <img class="arm" src="{{ url_for('static', filename = 'images/braco_mecanico_2.png') }}" alt="braço robótico">
+        </div>
+        <div class="form">
+            <form action="/post" method="post" name="headerform" id="header_form">
+                <p class="title">Relatório</p>
+                <p class="sub-title">Preencha as informações relacionadas a amostra em análise</p>
+                <div class="input-group" style="margin-right: 10%; width: 100%;">
+                    <label for="project">Projeto</label>
+                    <input required type="text" name="projeto" id="project">
+                </div>
+                <div class="input-group" style="margin-right: 10%; width: 100%;">
+                    <label for="client">Cliente</label>
+                    <input required type="text" name="cliente" id="client">
+                </div>
+                <div class="input-group" style="margin-right: 10%; width: 100%;">
+                    <label for="sample">Nome da amostra</label>
+                    <input required type="text" name="amostra" id="sample">
+                </div>
+                <div style="display: flex;">
+                    <div class="input-group" style="margin-right: 10%;">
+                        <label for="operator">Operador</label>
+                        <input style="width: 100%;" type="text" name="operador" id="operator">
+                    </div>
+                    <div class="input-group" style="margin-right: 10%;">
+                        <label for="cycles">Número de ciclos</label>
+                        <input style="width: 100%;" type="number" name="ciclos" id="cycles">
+                    </div>
+                </div>
+                <div style="display: flex; width:100%;">
+                    <div class="input-group" style="margin-right: 10%;">
+                        <label for="solid_weight">Massa inicial de sólido (g)</label>
+                        <input  style="width: 100%;" type="number" name="peso solido" id="solid_weight">
+                    </div>
+                    <div class="input-group" style="margin-right: 10%;">
+                        <label for="liquid_weight">Massa inicial de líquido (g)</label>
+                        <input  type="number" name="peso liquido" id="liquid_weight">
+                    </div>
+                </div>
+                <div class="button-group">
+                    <a href="" class="btn-cancel">Cancelar</a>
+                    <input type="submit" class="btn-add" onclick="valida_form()" value="Adicionar">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+
+</body>     
+</html>

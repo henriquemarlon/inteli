@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPT | Instituto de Pesquisas Tecnológicas</title>
+
+    <!-- Custom fonts for this template -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename = 'images/icon-ipt.png') }}"
+      alt="euaqui"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename = 'css/index.style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="flex">
+      <div>
+        <img class="logo" src="{{ url_for('static', filename = 'images/logo_ipt.png') }}" alt="logo ipt" />
+        <img
+          class="arm"
+          src="{{ url_for('static', filename = 'images/braco_mecanico_2.png') }}"
+          alt="braço robótico"
+        />
+      </div>
+      <div class="form" id="form">
+        <div class="info-label">
+          <p>Projeto: <span class="info-span-label" id="span_project">{{project}}</span></p>
+          <p>Cliente: <span class="info-span-label" id="span_client">{{client}}</span> </p>
+          <p>Amostra: <span class="info-span-label" id="span_sample">{{sample}}</span></p>
+      </div>
+      <div class="container-btn">
+          <button onclick="changeDobotStatus(this)" class="btn-off">
+          Iniciar rotina
+          </button>
+      </div>
+      <p id="error">Error</p>
+      <div class="dobot">
+          <div class="seletion-group">
+              <div class="">
+              <p class="title">Dobot Magician Lite</p>
+              <p class="sub-title">Flask app v1.4</p>
+                  <div class="slider">
+                      <label for="fader">Ímã</label>
+                      <input type="range" min="0" max="3" value="0" id="fader"oninput="rangeValue.innerText = this.value">
+                      <p id="rangeValue">0</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="report">
+          <a class="report-btn" href="../reports/pdf" target="_blank" id="myBtn" onClick="alert('Seu Relatório foi Baixado');">
+              <div class="report-text">
+                  Gerar relatório
+              </div>
+              <div class="report-img">
+                  <img class="next" src="{{ url_for('static', filename = 'images/right_arrow.png') }}">
+              </div>
+          </a>
+      </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+  </body>
+</html>

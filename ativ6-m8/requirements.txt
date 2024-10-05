@@ -1,0 +1,9 @@
+wheel
+openai
+tiktoken
+chromadb
+typeguard
+streamlit
+langchain
+python-dotenv
+beautifulsoup4

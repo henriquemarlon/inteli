@@ -1,0 +1,124 @@
+body{
+    background: rgb(23, 23, 24);
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 95%;
+    height: 70px;
+    margin-left: 1%;
+}
+
+.arm{
+    width: 35%;
+    height: 500px;    
+    position: absolute;
+    bottom: 0;
+    right: 65%;
+}
+
+.form {
+    width: 500px;
+    height: 85vh;
+    border-radius: 25px;
+    padding: 1.5rem;
+    background: #000000;
+    margin-top: 2%;
+    margin-right: 4%;
+}
+
+.title{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    display: grid;
+    color: #FFFFFF;
+    margin-bottom: 2%;
+    font-size: 32px;
+}
+
+.sub-title{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    display: grid;
+    color: #ffffff79;
+    font-size: 18px;
+}
+
+label{
+    font-family: 'Montserrat', light;
+    margin-left: 1%;
+    display: grid;
+    color: #ffffff;
+    margin-bottom: 1%;
+    font-size: 14px;
+}
+
+input{
+    display: block;
+    width: 90%;
+    padding: 0.75rem;
+    border-radius: 15px;
+    border: none;
+    background-color: #FFFFFF29;
+    color:#ffffff;
+    font-family: 'Montserrat', light;
+}
+
+.input-group{
+    margin-top: 3%;
+}
+
+.btn-add{
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    padding: 0.6rem;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: rgb(23, 23, 24);
+    align-items: center;
+    border-radius: 15px;
+    border: none;
+    width: 25%;
+    cursor: pointer;
+    transition: 0.3s;
+    justify-content: center;
+    margin-right: 5%;
+    font-size: 18px;
+}
+
+.report-btn:hover{
+    box-shadow: 0 0 0 2px #fff;
+}
+
+.btn-cancel{
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    padding: 0.6rem;
+    text-decoration: none;
+    background-color: #FFFFFF29;
+    color: #ffffff;
+    border-radius: 15px;
+    border: none;
+    width: 25%;
+    cursor: pointer;
+    transition: 0.3s;
+    justify-content: center;
+    margin-right: 5%;
+    font-size: 18px;
+}
+
+.button-group{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ margin: 0;
+}

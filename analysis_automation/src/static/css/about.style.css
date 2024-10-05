@@ -1,0 +1,75 @@
+body{
+    background: rgb(23, 23, 24);
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 95%;
+    height: 70px;
+    margin-left: 1%;
+}
+
+.arm{
+    width: 35%;
+    height: 500px;    
+    position: absolute;
+    bottom: 0;
+    right: 65%;
+}
+
+.form {
+    width: 500px;
+    height: fit-content;
+    border-radius: 25px;
+    padding: 1.5rem;
+    background: #000000;
+    margin-top: 4%;
+    margin-right: 4%;
+}
+
+.title{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    display: grid;
+    color: #FFFFFF;
+    margin-bottom: 4%;
+    font-size: 48px;
+}
+
+.sub-title{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    display: grid;
+    color: #ffffff79;
+    font-size: 18px;
+}
+
+.btn-begin{
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    padding: 0.6rem;
+    text-decoration: none;
+    background-color: #e3e3e3;
+    color: rgb(23, 23, 24);
+    border-radius: 15px;
+    border: none;
+    width: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    justify-content: center;
+    margin-right: 5%;
+}
+
+.btn-begin:hover{
+    box-shadow: 0 0 0 2px #ffffff;
+    background-color: #ffffff79;
+}
+
+.button{
+    justify-content: flex-end;
+    margin-top: 7%;
+}

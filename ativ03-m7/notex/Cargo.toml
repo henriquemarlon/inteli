@@ -1,0 +1,17 @@
+[package]
+name = "notex"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = "1.0.188"
+dotenv = "0.15.0"
+postgres = "0.19"
+bcrypt = "0.15.0"
+jsonwebtoken = "8.3.0"
+serde_json = "1.0.105"
+serde_derive = "1.0.188"
+dotenv_codegen = "0.15.0"
+chrono = { version = "0.4", features = ["serde"] }

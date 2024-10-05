@@ -1,0 +1,4 @@
+wheel
+gradio
+langchain
+python-dotenv

@@ -1,0 +1,4 @@
+O código contido no repositório utiliza a biblioteca TensorFlow para criar, treinar e avaliar um modelo de rede neural destinado ao reconhecimento de dígitos manuscritos, empregando o conjunto de dados MNIST. Após o carregamento e normalização dos dados, o modelo é definido como uma sequência de camadas, incluindo uma camada de achatamento e duas camadas densas com ativação ReLU, culminando em uma camada de saída com ativação softmax para classificação. O modelo é compilado com o otimizador Adam, a função de perda de entropia cruzada categórica esparsa e a métrica de precisão. Em seguida, é treinado nas imagens e rótulos de treinamento por três épocas. A precisão do modelo é avaliada nos dados de teste, e previsões são geradas. Uma previsão específica e a exibição de uma imagem de teste são demonstradas, oferecendo insights sobre o desempenho do modelo.
+
+
+https://www.loom.com/share/68d42350c7b540e6ba565ed374345538?sid=8d7cbc21-377c-4ef3-9ed8-adb4e160b176
